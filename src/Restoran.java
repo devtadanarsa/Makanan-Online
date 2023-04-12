@@ -27,18 +27,37 @@ public class Restoran {
         int harga;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Nama Makanan : ");
+        System.out.print("|| Nama Makanan : ");
         namaMakanan = scanner.nextLine();
-        System.out.print("Harga : ");
+        System.out.print("|| Harga : ");
         harga = scanner.nextInt();
 
         menu.add(new Makanan(namaMakanan, harga));
     }
 
     public void lihatMenu(){
-        for(int i = 0; i < menu.size(); i++){
-            System.out.printf("%s (Rp. %.2f)", menu.get(i).getNamaMakanan(), menu.get(i).getHarga());
+        if(menu.isEmpty() == true){
+            System.out.println("|| ================================================== ||");
+            System.out.println("||                     Tidak ada Menu                 ||");
+            System.out.println("|| ================================================== ||");
+        }else{
+            System.out.println("|| ================================================== ||");
+            System.out.println("||                          MENU                      ||");
+            System.out.println("|| ================================================== ||");
+            System.out.println("||            Nama            |         Harga         ||");
+            System.out.println("|| ================================================== ||");
+            for(int i = 0; i < menu.size(); i++){
+                System.out.printf("%-25s | Rp.-%20s\n", menu.get(i).getNamaMakanan(), menu.get(i).getHarga());
+            }
         }
+    }
+
+    public void detailRestoran(){
+        System.out.println("|| ================================================== ||");
+        System.out.printf("|| Nama Restoran : %-40s\n", this.getNamaResto());
+        System.out.printf("|| Lokasi : %-40s\n", this.getAlamatResto() + ", Bali");
+        System.out.println("|| ================================================== ||");
+        lihatMenu();
     }
 
 }
