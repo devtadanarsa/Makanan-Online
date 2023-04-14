@@ -22,4 +22,12 @@ public class ListRestoran {
     public static Restoran get(int index){
         return restaurants.get(index);
     }
+
+    public static boolean isEmpty(){
+        if(restaurants.isEmpty() == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

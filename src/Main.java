@@ -24,7 +24,8 @@ public class Main {
         if(username.equals("admin") && password.equals("termosdingin")){
             Admin.menuAdmin();
         }else{
-
+            Customer customer = new Customer();
+            customer.menuCustomer(customer);
         }
     }
 

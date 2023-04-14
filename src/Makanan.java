@@ -8,7 +8,10 @@ public class Makanan {
     }
 
     public String getNamaMakanan() {return namaMakanan;}
+
     public int getHarga() {return harga;}
+
     public void setNamaMakanan(String namaMakanan) {this.namaMakanan = namaMakanan;}
+
     public void setHarga(int harga) {this.harga = harga;}
 }
