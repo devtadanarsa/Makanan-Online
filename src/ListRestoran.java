@@ -24,7 +24,7 @@ public class ListRestoran {
     }
 
     public static boolean isEmpty(){
-        if(restaurants.isEmpty() == true){
+        if(restaurants.isEmpty()){
             return true;
         }else{
             return false;

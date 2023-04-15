@@ -1,10 +1,11 @@
+import utility.Input;
+import utility.Other;
+
 import java.util.Scanner;
 
 public class Admin {
 
     public static void menuAdmin(){
-        Scanner scanner = new Scanner(System.in);
-        int pilihan;
         System.out.println("|| ================================================== ||");
         System.out.println("||                      Menu Admin                    ||");
         System.out.println("|| ================================================== ||");
@@ -15,9 +16,9 @@ public class Admin {
         System.out.println("|| [5] Keluar dari Program                            ||");
         System.out.println("|| ================================================== ||");
         System.out.print("|| Masukkan pilihan anda : ");
-        pilihan = scanner.nextInt();
 
-        switch (pilihan){
+        Integer pilihan = Input.inputInteger();
+        switch (pilihan.intValue()){
             case 1 :
                 lihatRestoran();
                 menuAdmin();
@@ -36,58 +37,72 @@ public class Admin {
             case 5 :
                 System.exit(0);
                 break;
+            default :
+                Input.inputSalah();
+                Other.pressEnter();
+                menuAdmin();
         }
     }
 
     public static void lihatRestoran(){
         if(ListRestoran.isEmpty()){
             System.out.println("|| ================================================== ||");
-            System.out.println("||                 Restoran Tidak Ditemukan           ||");
+            System.out.println("||                 Tidak ada Restoran                 ||");
+            System.out.println("||                    Yang Tersedia                   ||");
             System.out.println("|| ================================================== ||");
-        }else {
-            Scanner scanner = new Scanner(System.in);
-            int pilihan;
-
+            Other.pressEnter();
+        }else{
             System.out.println("|| ================================================== ||");
             System.out.println("||                    List Restoran                   ||");
             System.out.println("|| ================================================== ||");
             for (int i = 0; i < ListRestoran.size(); i++) {
                 System.out.printf("|| [%d] %-46s ||\n", (i + 1), ListRestoran.get(i).getNamaResto());
             }
+            System.out.println("|| [0] Kembali ke Menu Admin                          ||");
             System.out.println("|| ================================================== ||");
             System.out.print("|| Pilih Restoran : ");
-            pilihan = scanner.nextInt();
-            Restoran restoran = ListRestoran.get(pilihan - 1);
-            restoran.detailRestoran();
+            Integer pilihanRestoran = Input.inputInteger();
 
-            System.out.println("|| [1] Tambah Menu                                    ||");
-            System.out.println("|| [2] Kembali ke Menu Admin                          ||");
-            System.out.print("|| Pilihan Anda : ");
-            pilihan = scanner.nextInt();
+            if(pilihanRestoran.intValue() == 0){
+                menuAdmin();
+            }else if(pilihanRestoran.intValue() < 0 || pilihanRestoran.intValue() > ListRestoran.size()){
+                System.out.println("|| ================================================== ||");
+                System.out.println("||               Restoran Tidak Ditemukan             ||");
+                System.out.println("|| ================================================== ||");
+                Other.pressEnter();
+            }else{
+                Restoran restoran = ListRestoran.get(pilihanRestoran.intValue() - 1);
+                restoran.detailRestoran();
 
-            switch (pilihan){
-                case 1 :
-                    restoran.tambahMenu();
-                    lihatRestoran();
-                    break;
-                case 2 :
-                    Admin.menuAdmin();
-                    break;
+                System.out.println("|| [1] Tambah Menu                                    ||");
+                System.out.println("|| [2] Kembali ke Menu Admin                          ||");
+                System.out.print("|| Pilihan Anda : ");
+                Integer pilihanLanjutan = Input.inputInteger();
+
+                switch (pilihanLanjutan.intValue()){
+                    case 1 :
+                        restoran.tambahMenu();
+                        lihatRestoran();
+                        break;
+                    case 2 :
+                        menuAdmin();
+                        break;
+                    default :
+                        Input.inputSalah();
+                        Other.pressEnter();
+                        lihatRestoran();
+                        break;
+                }
             }
-
         }
     }
 
     public static void tambahRestoran(){
-        String namaResto;
-        int pilihanAlamat;
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("|| ================================================== ||");
         System.out.println("||                    Tambah Restoran                 ||");
         System.out.println("|| ================================================== ||");
         System.out.print("|| Nama Restoran : ");
-        namaResto = scanner.nextLine();
+        String namaResto = Input.inputString();
         System.out.println("|| -------------------------------------------------- ||");
         System.out.println("||                Pilihan Alamat Restoran             ||");
         System.out.println("|| -------------------------------------------------- ||");
@@ -96,9 +111,9 @@ public class Admin {
         System.out.println("|| [3] Badung                [8] Negara               ||");
         System.out.println("|| [4] Klungkung             [9] Buleleng             ||");
         System.out.println("|| [5] Karangasem                                     ||");
-        System.out.print("|| Pilihan Alamat Restoran : ");
-        pilihanAlamat = scanner.nextInt();
-        switch (pilihanAlamat){
+        System.out.print("|| Pilih Alamat Restoran : ");
+        Integer pilihanAlamat = Input.inputInteger();
+        switch (pilihanAlamat.intValue()){
             case 1 :
                 ListRestoran.tambah(new Restoran(namaResto, "Denpasar"));
                 break;
@@ -126,15 +141,39 @@ public class Admin {
             case 9 :
                 ListRestoran.tambah(new Restoran(namaResto, "Buleleng"));
                 break;
+            default:
+                Input.inputSalah();
+                Other.pressEnter();
         }
     }
 
     public static void hapusRestoran(){
-        Scanner scanner = new Scanner(System.in);
-        int pilihan;
-        lihatRestoran();
-        System.out.println(" Pilih Restoran Untuk Dihapus : ");
-        pilihan = scanner.nextInt();
-        ListRestoran.hapus(pilihan - 1);
+        if(ListRestoran.isEmpty()){
+            System.out.println("|| ================================================== ||");
+            System.out.println("||                 Tidak ada Restoran                 ||");
+            System.out.println("||                    Yang Tersedia                   ||");
+            System.out.println("|| ================================================== ||");
+            Other.pressEnter();
+        }else{
+            System.out.println("|| ================================================== ||");
+            System.out.println("||                    List Restoran                   ||");
+            System.out.println("|| ================================================== ||");
+            for (int i = 0; i < ListRestoran.size(); i++) {
+                System.out.printf("|| [%d] %-46s ||\n", (i + 1), ListRestoran.get(i).getNamaResto());
+            }
+            System.out.println("|| [0] Kembali ke Menu Admin                          ||");
+            System.out.println("|| ================================================== ||");
+            System.out.print("|| Pilih Restoran Untuk Dihapus : ");
+            Integer pilihanRestoran = Input.inputInteger();
+            if(pilihanRestoran.intValue() == 0){
+                menuAdmin();
+            }else if(pilihanRestoran.intValue() < 0 || pilihanRestoran.intValue() > ListRestoran.size()){
+                System.out.println("|| ================================================== ||");
+                System.out.println("||               Restoran Tidak Ditemukan             ||");
+                System.out.println("|| ================================================== ||");
+                Other.pressEnter();
+            }
+            ListRestoran.hapus(pilihanRestoran.intValue() - 1);
+        }
     }
 }

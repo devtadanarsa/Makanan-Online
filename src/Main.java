@@ -1,31 +1,26 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import utility.Input;
 
 public class Main {
     /**
      * Fungsi menuLogin() :
      * Menerima input username(string) dan password(string) dari user melalui scanner.
      * Jika (username == admin && password == termosdingin) -> program berjalan melalui menuAdmin().
-     * Selain itu -> program berjalan melalui menuCustomer().
+     * Selain itu -> program berjalan melalui introCustomer().
      */
     public static void menuLogin(){
-        String username;
-        String password;
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("|| ================================================== ||");
         System.out.println("||                    Menu Login                      ||");
         System.out.println("|| ================================================== ||");
         System.out.print("|| Username : ");
-        username = scanner.nextLine();
+        String username = Input.inputString();
         System.out.print("|| Password : ");
-        password = scanner.nextLine();
+        String password = Input.inputString();
 
         if(username.equals("admin") && password.equals("termosdingin")){
             Admin.menuAdmin();
         }else{
             Customer customer = new Customer();
-            customer.menuCustomer(customer);
+            customer.introCustomer(customer);
         }
     }
 

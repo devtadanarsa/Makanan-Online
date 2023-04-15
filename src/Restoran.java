@@ -2,51 +2,57 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Restoran {
-    private static int jmlResto;
     private String namaResto;
     private String alamatResto;
-    private ArrayList <Makanan> menu;
+    private ArrayList <Menu> menu;
 
     //Constructor
     public Restoran(String namaResto, String alamatResto){
         this.namaResto = namaResto;
         this.alamatResto = alamatResto;
         menu = new ArrayList<>();
-        jmlResto++;
     }
 
     //Getter dan Setter
-    public static int getJmlResto() {return jmlResto;}
     public String getNamaResto() {return namaResto;}
     public String getAlamatResto() {return alamatResto;}
     public void setNamaResto(String namaResto) {this.namaResto = namaResto;}
     public void setAlamatResto(String alamatResto) {this.alamatResto = alamatResto;}
 
+    public Menu getMenu(int index){
+        return menu.get(index);
+    }
+
     public int jumlahMenu(){
         return menu.size();
     }
 
-    public Makanan getMenu(int index){
-        return menu.get(index);
-    }
-
+    /**
+     * Fungsi untuk menambah menu.
+     * Input : namaMenu(String), harga(Integer).
+     * Output : menu.add(new Makanan(namaMenu, harga)
+     */
     public void tambahMenu(){
-        String namaMakanan;
+        String namaMenu;
         int harga;
         Scanner scanner = new Scanner(System.in);
         System.out.println("|| ================================================== ||");
         System.out.println("||                      Tambah Menu                   ||");
         System.out.println("|| ================================================== ||");
-        System.out.print("|| Nama Makanan : ");
-        namaMakanan = scanner.nextLine();
-        System.out.print("|| Harga : ");
+        System.out.print("|| Nama Menu : ");
+        namaMenu = scanner.nextLine();
+        System.out.print("|| Harga : Rp.");
         harga = scanner.nextInt();
 
-        menu.add(new Makanan(namaMakanan, harga));
+        menu.add(new Menu(namaMenu, harga));
     }
 
+    /**
+     * Fungsi untuk melihat menu yang tersedia pada satu restoran.
+     * Tidak memerlukan input & output.
+     */
     public void lihatMenu(){
-        if(menu.isEmpty() == true){
+        if(menu.isEmpty()){
             System.out.println("|| ================================================== ||");
             System.out.println("||                    Tidak ada Menu                  ||");
             System.out.println("|| ================================================== ||");
@@ -57,12 +63,19 @@ public class Restoran {
             System.out.println("|| No |          Nama            |        Harga       ||");
             System.out.println("|| ================================================== ||");
             for(int i = 0; i < menu.size(); i++){
-                System.out.printf("||  %d | %-25s | Rp.%-14s ||\n", (i + 1), menu.get(i).getNamaMakanan(), menu.get(i).getHarga());
+                System.out.printf("||  %d | %-25s | Rp.%-14s ||\n", (i + 1), menu.get(i).getNamaMenu(), menu.get(i).getHarga());
             }
             System.out.println("|| ================================================== ||");
         }
     }
 
+    /**
+     * Fungsi untuk melihat detail dari satu restoran.
+     * Tampilan :
+     * - Nama Restoran
+     * - Lokasi
+     * - List Menu
+     */
     public void detailRestoran(){
         System.out.println("|| ================================================== ||");
         System.out.printf("|| Nama Restoran : %-34s ||\n", this.getNamaResto());
