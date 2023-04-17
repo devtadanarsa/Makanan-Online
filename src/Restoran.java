@@ -1,15 +1,19 @@
+import utility.Other;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Restoran {
+    private Integer idRestoran;
     private String namaResto;
     private String alamatResto;
     private ArrayList <Menu> menu;
 
     //Constructor
     public Restoran(String namaResto, String alamatResto){
-        this.namaResto = namaResto;
-        this.alamatResto = alamatResto;
+        this.setNamaResto(namaResto);
+        this.setAlamatResto(alamatResto);
+        this.setIdRestoran(ListRestoran.size() + 1);
         menu = new ArrayList<>();
     }
 
@@ -18,14 +22,10 @@ public class Restoran {
     public String getAlamatResto() {return alamatResto;}
     public void setNamaResto(String namaResto) {this.namaResto = namaResto;}
     public void setAlamatResto(String alamatResto) {this.alamatResto = alamatResto;}
-
-    public Menu getMenu(int index){
-        return menu.get(index);
-    }
-
-    public int jumlahMenu(){
-        return menu.size();
-    }
+    public void setIdRestoran(Integer idRestoran) {this.idRestoran = idRestoran;}
+    public Integer getIdRestoran() {return idRestoran;}
+    public Menu getMenu(int index) {return menu.get(index);}
+    public int jumlahMenu() {return menu.size();}
 
     /**
      * Fungsi untuk menambah menu.
@@ -79,6 +79,7 @@ public class Restoran {
     public void detailRestoran(){
         System.out.println("|| ================================================== ||");
         System.out.printf("|| Nama Restoran : %-34s ||\n", this.getNamaResto());
+        System.out.printf("|| Id Restoran : 00%-34d ||\n", this.getIdRestoran());
         System.out.printf("|| Lokasi : %-41s ||\n", (this.getAlamatResto() + ", Bali"));
         lihatMenu();
     }

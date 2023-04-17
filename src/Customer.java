@@ -14,81 +14,38 @@ public class Customer {
         jumlahPesanan = new ArrayList<>();
     }
 
-    private void setNamaCustomer(String namaCustomer) {
-        this.namaCustomer = namaCustomer;
-    }
+    //Getter dan Setter
+    private void setNamaCustomer(String namaCustomer) {this.namaCustomer = namaCustomer;}
+    public String getNamaCustomer() {return namaCustomer;}
+    public void setAlamatCustomer(String alamatCustomer) {this.alamatCustomer = alamatCustomer;}
+    public String getAlamatCustomer() {return alamatCustomer;}
 
-    public void setAlamatCustomer(String alamatCustomer) {
-        this.alamatCustomer = alamatCustomer;
-    }
-
-    public String getAlamatCustomer() {
-        return alamatCustomer;
-    }
-
-    public void introCustomer(Customer customer){
+    /**
+     * Fungsi untuk mendapatkan nama dan lokasi dari customer.
+     * Fungsi ini hanya akan dipanggil sekali, yaitu sesaat setelah login menjadi user.
+     */
+    public void introCustomer(){
+        Other.clearScreen();
         System.out.println("|| ================================================== ||");
         System.out.println("||                   BIODATA CUSTOMER                 ||");
         System.out.println("|| ================================================== ||");
         System.out.print("|| Nama : ");
         String namaCustomer = Input.inputString();
         setNamaCustomer(namaCustomer);
-        System.out.println("|| -------------------------------------------------- ||");
-        System.out.println("|| [1] Denpasar              [6] Bangli               ||");
-        System.out.println("|| [2] Gianyar               [7] Jembrana             ||");
-        System.out.println("|| [3] Badung                [8] Negara               ||");
-        System.out.println("|| [4] Klungkung             [9] Buleleng             ||");
-        System.out.println("|| [5] Karangasem                                     ||");
-        System.out.print("|| Pilih Domisili : ");
-        Integer pilihanDomisili = Input.inputInteger();
-        switch (pilihanDomisili){
-            case 1 :
-                setAlamatCustomer("Denpasar");
-                menuCustomer(customer);
-                break;
-            case 2 :
-                setAlamatCustomer("Gianyar");
-                menuCustomer(customer);
-                break;
-            case 3 :
-                setAlamatCustomer("Badung");
-                menuCustomer(customer);
-                break;
-            case 4 :
-                setAlamatCustomer("Klungkung");
-                menuCustomer(customer);
-                break;
-            case 5 :
-                setAlamatCustomer("Karangasem");
-                menuCustomer(customer);
-                break;
-            case 6 :
-                setAlamatCustomer("Bangli");
-                menuCustomer(customer);
-                break;
-            case 7 :
-                setAlamatCustomer("Jembrana");
-                menuCustomer(customer);
-                break;
-            case 8 :
-                setAlamatCustomer("Negara");
-                menuCustomer(customer);
-                break;
-            case 9 :
-                setAlamatCustomer("Buleleng");
-                menuCustomer(customer);
-                break;
-        }
+        System.out.print("|| Domisili : ");
+        String alamatCustomer = Input.inputString();
+        setAlamatCustomer(alamatCustomer);
+        menuCustomer();
     }
 
     /**
      * Fungsi untuk menampilkan menu customer.
      * Fungsi ini akan melanjutkan program sesuai dengan aksi yang dipilih oleh customer.
-     * @param customer
      */
-    public void menuCustomer(Customer customer){
+    public void menuCustomer(){
+        Other.clearScreen();
         System.out.println("|| ================================================== ||");
-        System.out.println("||                     Menu Customer                  ||");
+        System.out.println("||                     MENU CUSTOMER                  ||");
         System.out.println("|| ================================================== ||");
         System.out.println("|| [1] Buat Pesanan                                   ||");
         System.out.println("|| [2] Kembali ke Login                               ||");
@@ -97,13 +54,13 @@ public class Customer {
         System.out.print("|| Pilihan Anda : ");
         Integer pilihan = Input.inputInteger();
 
-        switch (pilihan.intValue()){
+        switch (pilihan){
             case 1 :
-                buatPesanan(customer);
-                menuCustomer(customer);
+                buatPesanan();
+                menuCustomer();
                 break;
             case 2 :
-                Main.menuLogin();
+                Admin.menuLogin();
                 break;
             case 3 :
                 System.exit(0);
@@ -111,7 +68,7 @@ public class Customer {
             default :
                 Input.inputSalah();
                 Other.pressEnter();
-                menuCustomer(customer);
+                menuCustomer();
                 break;
         }
 
@@ -119,9 +76,9 @@ public class Customer {
 
     /**
      * Fungsi untuk membuat sebuah pesanan.
-     * @param customer
      */
-    public void buatPesanan(Customer customer){
+    public void buatPesanan(){
+        Other.clearScreen();
         if(ListRestoran.isEmpty()){
             System.out.println("|| ================================================== ||");
             System.out.println("||                 Tidak ada Restoran                 ||");
@@ -141,7 +98,7 @@ public class Customer {
             Integer pilihan = Input.inputInteger();
 
             if(pilihan == 0){
-                menuCustomer(customer);
+                menuCustomer();
                 Other.pressEnter();
             }else if(pilihan < 0 || pilihan > ListRestoran.size()){
                 System.out.println("|| ================================================== ||");
@@ -150,7 +107,7 @@ public class Customer {
                 Other.pressEnter();
             }else{
                 Restoran restoran = ListRestoran.get(pilihan - 1);
-                buatPesananLoop(customer, restoran);
+                buatPesananLoop(restoran);
             }
         }
     }
@@ -158,17 +115,17 @@ public class Customer {
     /**
      * Fungsi untuk menambah pesanan yang telah dibuat.
      * Fungsi ini dipanggil pada fungsi buatPesanan().
-     * @param customer
      * @param restoran
      */
-    public void buatPesananLoop(Customer customer, Restoran restoran){
+    public void buatPesananLoop(Restoran restoran){
+        Other.clearScreen();
         if(restoran.jumlahMenu() == 0){
             System.out.println("|| ================================================== ||");
             System.out.println("||               Tidak ada Pilihan Menu               ||");
             System.out.println("||                   Yang Tersedia                    ||");
             System.out.println("|| ================================================== ||");
             Other.pressEnter();
-            buatPesanan(customer);
+            buatPesanan();
         }else{
             restoran.lihatMenu();
             System.out.print("|| Pilihan Anda : ");
@@ -186,10 +143,10 @@ public class Customer {
             Integer pilihanLanjutan = Input.inputInteger();
             switch (pilihanLanjutan){
                 case 1 :
-                    buatPesananLoop(customer, restoran);
+                    buatPesananLoop(restoran);
                     break;
                 case 2 :
-                    checkoutPesanan(customer, restoran);
+                    checkoutPesanan(restoran);
                     break;
 
             }
@@ -199,12 +156,12 @@ public class Customer {
     /**
      * Fungsi untuk melakukan checkout bagi customer.
      * Tampilan : data restoran (nama restoran, lokasi), pesanan, harga.
-     * @param customer
      * @param restoran
      */
-    public void checkoutPesanan(Customer customer, Restoran restoran){
+    public void checkoutPesanan(Restoran restoran){
+        Other.clearScreen();
         Integer totalHarga = 0;
-        Integer ongkosKirim = jarakCustomerRestoran(customer, restoran) * 370;
+        Integer ongkosKirim = jarakCustomerRestoran(this, restoran) * 370;
         for(int i = 0; i < listPesanan.size(); i++){
             totalHarga += listPesanan.get(i).getHarga() * jumlahPesanan.get(i).intValue();
         }
@@ -214,6 +171,7 @@ public class Customer {
         System.out.println("|| ---------------------------------------------------||");
         System.out.println("||                    Data Restoran                   ||");
         System.out.printf("|| Nama Restoran : %-34s ||\n", restoran.getNamaResto());
+        System.out.printf("|| Id Restoran : 00%-34d ||\n", restoran.getIdRestoran());
         System.out.printf("|| Lokasi : %-41s ||\n", (restoran.getAlamatResto() + ", Bali"));
         System.out.println("|| ================================================== ||");
         System.out.println("||        Nama Menu          |  Qty  |     Harga      ||");
@@ -228,6 +186,7 @@ public class Customer {
         System.out.println("||                      Tekan Enter                   ||");
         System.out.println("||              Untuk Menyelesaikan Pesanan           ||");
         System.out.println("|| ================================================== ||");
+        Other.pressEnter();
     }
 
     /**
