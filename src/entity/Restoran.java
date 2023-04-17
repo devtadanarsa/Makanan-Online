@@ -1,5 +1,4 @@
-import utility.Other;
-
+package entity;
 import java.util.ArrayList;
 import java.util.Scanner;
 

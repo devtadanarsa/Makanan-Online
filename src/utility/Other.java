@@ -1,5 +1,4 @@
 package utility;
-
 import java.util.Random;
 
 public class Other {

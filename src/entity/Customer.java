@@ -1,3 +1,4 @@
+package entity;
 import utility.Input;
 import utility.Other;
 
@@ -195,7 +196,7 @@ public class Customer {
      * @param restoran
      * @return
      */
-    public Integer jarakCustomerRestoran(Customer customer, Restoran restoran){
+    private Integer jarakCustomerRestoran(Customer customer, Restoran restoran){
         if(customer.getAlamatCustomer().equals(restoran.getAlamatResto())){
             return Other.randomNumber(0, 10);
         }else{

@@ -1,8 +1,6 @@
+package entity;
 import utility.Input;
 import utility.Other;
-
-import java.util.List;
-import java.util.Scanner;
 
 public class Admin {
 
