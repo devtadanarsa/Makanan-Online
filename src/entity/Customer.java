@@ -30,7 +30,7 @@ public class Customer {
         System.out.println("|| ================================================== ||");
         System.out.println("||                   BIODATA CUSTOMER                 ||");
         System.out.println("|| ================================================== ||");
-        System.out.print("|| Nama : ");
+        System.out.print("|| Nama Lengkap : ");
         String namaCustomer = Input.inputString();
         setNamaCustomer(namaCustomer);
         System.out.print("|| Domisili : ");
@@ -174,7 +174,13 @@ public class Customer {
         System.out.printf("|| Nama Restoran : %-34s ||\n", restoran.getNamaResto());
         System.out.printf("|| Id Restoran : 00%-34d ||\n", restoran.getIdRestoran());
         System.out.printf("|| Lokasi : %-41s ||\n", (restoran.getAlamatResto() + ", Bali"));
-        System.out.println("|| ================================================== ||");
+        System.out.println("|| ---------------------------------------------------||");
+        System.out.println("||                    Data Customer                   ||");
+        System.out.printf("|| Nama Customer : %-34s ||\n", this.getNamaCustomer());
+        System.out.printf("|| Lokasi : %-41s ||\n", (this.getAlamatCustomer() + ", Bali"));
+        System.out.println("|| ---------------------------------------------------||");
+        System.out.println("||                       PESANAN                      ||");
+        System.out.println("|| ---------------------------------------------------||");
         System.out.println("||        Nama Menu          |  Qty  |     Harga      ||");
         System.out.println("|| -------------------------------------------------- ||");
         for(int i = 0; i < listPesanan.size(); i++){
